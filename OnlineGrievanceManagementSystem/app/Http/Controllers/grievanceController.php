@@ -112,9 +112,11 @@ class grievanceController extends Controller
     public function showOpenGrievances()
     {
        // $id = Auth::user()->id;
-       $id = "5";        
-        $student_id = Student::where('user_id', $id)->get();
+       $id = "5";
+        $student_id = Student::where('user_id', $id)->get(['id']);
+
         $grievances = Grievance::where('student_id', $student_id[0]->id)->get();
+
         foreach ($grievances as $grievance){
             $data = GrievanceStatus::where('grievance_id', $grievance->id)->where('status', 'raised')->orWhere('status', 'approved')->orderBy('status', 'DESC')->get();
             //print(count($data));
@@ -134,21 +136,55 @@ class grievanceController extends Controller
             $department[$grievance->id]=$data[0]->name;
         }
         return $department;
-        // $i=0;
-        // $result = [];
-        // foreach ($grievances as $grievance){
-        //     // $result[$i] = [
-        //     //     'grievance_id' => $grievance->id,
-        //     //     'assigned_committee' => $grievance->type,
-        //     //     'data_of_issue'=> $grievance->created_at,
-        //     //     'status' => $grievance_status[\strval($grievance->id)],
-        //     //     'eta' => $grievance_eta[\strval($grievance->id)],
-        //     //     'attachment' => $grievance->documents,
-        //     //     'action' => $action[\strval($grievance->id)]
-        //     // ];
-        //     // $i= $i+1;
-        //     print($action["{$grievance->id}"]);
-        // }
-        //return $result;
+         $i=0;
+         $result = [];
+         foreach ($grievances as $grievance){
+              $result[$i] = [
+                  'grievance_id' => $grievance->id,
+                  'assigned_committee' => $grievance->type,
+                  'data_of_issue'=> $grievance->created_at,
+                  'status' => $grievance_status[\strval($grievance->id)],
+                  'eta' => $grievance_eta[\strval($grievance->id)],
+                  'attachment' => $grievance->documents,
+                  'action' => $action[\strval($grievance->id)]
+              ];
+              $i= $i+1;
+             print($action["{$grievance->id}"]);
+         }
+        return $result;
     }
+
+
+    public function openGrievances(){
+        $id ="5";
+        $student_id = DB::table('user_student')->where('user_id',$id)->get(['id'])->first();
+        $grievance = DB::table('table_grievance')->where('student_id',$student_id->id)->orderBy('id','asc')
+                        ->get(['id','type','created_at','documents']);
+        $data = [];
+        $i = 0;
+        foreach ($grievance as $id){
+            $data[$i] = $id->id;
+            $i++;
+        }
+        $grievance_status = DB::table('table_grievance_status')->whereIn('status',['raised','addressed'])
+            ->whereIn('grievance_id',$data)->orderBy('grievance_id','asc')
+            ->get(['grievance_id','status','eta']);
+        $i = 0;
+        $data=[];
+
+        for ($i = 0; $i<count($grievance_status);$i++){
+            $data[$i] = [
+              'id'=>$grievance[$i]->id,
+              'type' => $grievance[$i]->type,
+              'created_at' => $grievance[$i]->created_at,
+              'documents'=>  $grievance[$i]->documents,
+                'status'=>$grievance_status[$i]->status,
+                'eta'=>$grievance_status[$i]->eta
+            ];
+        }
+
+        echo json_encode($data);
+    }
+
+
 }
