@@ -1,0 +1,111 @@
+#form-bg{
+  background: url('../assets/images/login-bg.jpg');
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/*any overlay effect should be here*/
+.overlay{
+   width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba(20,20,20,0.6);
+}
+
+.row {
+  margin-left: 0;
+}
+
+#form-box{
+  background: #fff;
+  width: 500px;
+  min-height: 350px;
+  padding: 1.5em;
+  position: absolute;
+  left: 60%;
+  top: 50%;
+  transform: translate(-30%,-50%);
+  font-size: 12.5px;
+  border-radius: 10px;
+  /*box-shadow: 0px 0px 25px 0.5px #333;*/
+}
+
+#form-box img{
+  width: 80px;
+  height: 80px;
+}
+.form-head{
+  font-size: 1.7em;
+  color: #3e4e68;
+  font-weight: 500;
+  text-align: center;
+  font-family: arial;
+
+}
+
+.bold{
+  font-weight: 700;
+  font-size: 1.5em;
+
+}
+.gap{
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+.tabs{
+  font-size: 1.6em;
+  font-weight: bolder;
+  color: #2c343f; 
+}
+.tab-link{
+  display: inline-block;
+  padding-bottom: 0.2em;
+  cursor: pointer;
+}
+.active_tab{
+  border-bottom: 3px solid #019cb7;
+}
+
+.form-group{
+  margin-bottom:1.2em;
+}
+
+.form-group input{
+  display: block;
+  outline: none;
+  border: none;
+  width: 100%;
+  padding: 0.5em;
+  background: transparent;
+}
+
+.form-group input[type='text'],.form-group input[type='email'],.form-group input[type='password']{
+  border-bottom: 1px solid #ccc;
+}
+.form-group input[type='submit']{
+  background: #019cb7;
+  color: #fff;
+  font-size: 1.2em;
+  padding:0.3em 2.2em;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline-block;
+  width: auto;
+  margin-top: 20px;
+  box-shadow: 0px 0px 8px 2px #bababa;
+}
+
+#hr3{
+  width: 50%;
+  height: 2px;
+  float: left;
+  margin-left: 1em;
+  background: linear-gradient(to right, #019cb7 0%, #019cb7 33.34%, 
+                              #ea8b1b  33.34%, #ea8b1b  66.67%,
+                              #83be29 66.67%, #83be29 100%);
+}
