@@ -29,7 +29,7 @@ Route::get('/testTemplate', function(){
 
 Route::post('/register','LoginController@register');
 
-Route::post('/grievances', 'grievanceController@openGrievances');
+Route::post('/grievances', 'grievanceController@index');
 
 Route::middleware('auth.basic')->group(function(){
 	Route::post('/login','LoginController@checkAuth');
