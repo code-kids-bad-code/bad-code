@@ -126,7 +126,7 @@ class grievanceController extends Controller
         $result["esclated"] = $esclated;
         $result["resolved"] = $resolved;
 
-        echo \json_encode($result);
+        return \json_encode($result);
     }
 
     /**
