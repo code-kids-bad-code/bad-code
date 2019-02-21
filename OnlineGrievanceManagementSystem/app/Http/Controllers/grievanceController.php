@@ -201,7 +201,19 @@ class grievanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $grievance = GrievanceStatus::find($id);
+        if($request->input('action') == 0){
+            $grievance->status = "esclated";
+            $grievance->eta = 7;
+        }
+        else{
+            $grievance->status = "resolved";
+            $grievance->eta = 0;
+        }
+        
+        $grievance->save();
+
+        return redirect('/grievances/index');
     }
 
     /**
